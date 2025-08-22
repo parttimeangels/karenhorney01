@@ -8,61 +8,55 @@ body {
   color: #333;
 }
 
+/* 안내 화면 스타일 */
+#introContainer {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+#introContainer h1 {
+  font-size: 22px;
+  margin-bottom: 16px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+#introContainer p {
+  font-size: 15px;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+#introContainer p br {
+  margin-bottom: 8px;
+}
+
+#introContainer button {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #007BFF;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#introContainer button:hover {
+  background: #0056b3;
+}
+
+/* 질문/결과 영역은 기존 스타일 유지 */
 #quizContainer, #result {
   background: #fff;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-#progress {
-  display: block;
-  text-align: right;
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 8px;
-}
-
-#questionText {
-  font-size: 18px;
-  margin-bottom: 15px;
-}
-
-.optionBtn {
-  display: block;
-  width: 100%;
-  margin: 8px 0;
-  padding: 14px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: #f9f9f9;
-  text-align: left;
-  transition: all 0.2s;
-}
-
-.optionBtn:hover {
-  background: #f0f0f0;
-  border-color: #bbb;
-}
-
-.optionBtn:active {
-  background: #e0e0e0;
-}
-
-#result h2 {
-  font-size: 22px;
-  margin-bottom: 15px;
-}
-
-#result h3 {
-  margin-top: 20px;
-  font-size: 18px;
-  color: #444;
-}
-
-#result p {
-  font-size: 15px;
-  margin: 8px 0;
-  color: #555;
 }
