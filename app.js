@@ -77,19 +77,103 @@ const questions = [
 ];
 
 // =========================
-// 2. 해설 (축별 + 상충)
+// 2. 축별 해설
 // =========================
-// ... axisDescriptions, conflictPatterns, calculateResults, getConflictInterpretation
-// (이전 코드 그대로 유지)
+const axisDescriptions = {
+  relation: {
+    순응: "사람과의 관계에서 타인을 배려하고 따르는 성향입니다. 따뜻하지만 자기주장을 억누르면 속에 분노가 쌓일 수 있습니다.",
+    맞섬: "관계에서 주도적이고 자기주장을 강하게 드러냅니다. 당당하지만 타인을 도구적으로 대할 위험도 있습니다.",
+    회피: "관계에서 거리를 두고 피하는 성향입니다. 갈등은 줄지만 진심을 나누기 어렵습니다."
+  },
+  coping: {
+    순응: "문제를 함께 나누고 의지하며 해결하려는 성향입니다. 협력적이지만 의존적일 수 있습니다.",
+    맞섬: "문제를 정면으로 부딪히며 성취를 추구합니다. 추진력이 강하지만 타인을 배려하지 못할 수 있습니다.",
+    회피: "문제를 미루거나 완벽주의적으로 준비하다 시기를 놓칩니다. 실행력이 떨어질 수 있습니다."
+  },
+  self: {
+    순응: "타인의 인정과 애정을 원합니다. 친밀하지만 스스로의 기준을 놓칠 수 있습니다.",
+    맞섬: "자기 기준과 판단을 우선합니다. 독립적이지만 냉정하다는 평을 받을 수 있습니다.",
+    회피: "타인의 의존이 버겁게 느껴지고 자기 결정을 피하려 합니다. 안전하지만 고립될 수 있습니다."
+  },
+  emotion: {
+    순응: "분위기에 맞춰 감정을 표현합니다. 온화하지만 속마음을 숨길 수 있습니다.",
+    맞섬: "감정을 솔직히 드러내며 직설적으로 표현합니다. 진솔하지만 과격하게 보일 수 있습니다.",
+    회피: "감정을 억누르고 겉으로는 괜찮은 척합니다. 겉은 평온하지만 속은 답답해질 수 있습니다."
+  }
+};
 
 // =========================
-// 3. 진행 상태 변수
+// 3. 상충 해설 패턴
+// =========================
+const conflictPatterns = [
+  { combo: { relation: "순응", coping: "회피" }, interpretation: "관계에서는 다정하고 배려가 많지만, 문제 해결에서는 쉽게 물러섭니다. 그래서 착하지만 답답하다는 평가를 받을 수 있습니다." },
+  { combo: { relation: "맞섬", coping: "회피" }, interpretation: "관계에서는 강하게 주장하지만, 실제 문제 해결에서는 피하는 경향이 있습니다. 말과 행동이 엇갈려 신뢰를 잃을 수 있습니다." },
+  { combo: { relation: "순응", coping: "맞섬" }, interpretation: "관계에서는 양보적이지만, 문제 해결에서는 정면으로 맞섭니다. 정의를 중시하지만 가까운 관계에선 힘을 쓰지 못할 수 있습니다." },
+  { combo: { relation: "순응", self: "맞섬" }, interpretation: "겉으로는 순응적이지만 내면에서는 자기 고집이 강합니다. 겉도는 대화 속에 분노가 쌓이는 모순이 생길 수 있습니다." },
+  { combo: { relation: "맞섬", self: "회피" }, interpretation: "타인에게는 맞서지만 자기 삶은 회피합니다. 다른 사람 문제엔 개입하면서 자신은 피하는 이중성이 나타납니다." },
+  { combo: { coping: "맞섬", emotion: "회피" }, interpretation: "문제는 정면으로 해결하지만 감정을 억눕습니다. 추진력이 강하지만 번아웃이 쌓일 수 있습니다." },
+  { combo: { coping: "회피", emotion: "맞섬" }, interpretation: "문제는 피하지만 감정은 격렬히 드러냅니다. 사소한 일에도 분노가 폭발하며 깊은 비애를 안고 있을 수 있습니다." },
+  { combo: { self: "회피", emotion: "맞섬" }, interpretation: "책임은 피하면서 감정은 즉각 드러냅니다. 수동적이지만 예기치 못한 순간에 폭발할 수 있습니다." },
+  { combo: { self: "순응", emotion: "회피" }, interpretation: "욕구를 억누르고 감정도 삼킵니다. 겉은 온화하지만 속은 공허와 우울이 쌓일 수 있습니다." }
+];
+
+// =========================
+// 4. 결과 계산 함수
+// =========================
+function calculateResults(answers) {
+  let scores = { relation: {}, coping: {}, self: {}, emotion: {} };
+
+  questions.forEach((q, i) => {
+    const style = Object.keys(q.options).find(s => q.options[s] === answers[i]);
+    if (style && style !== "중립") {
+      scores[q.axis][style] = (scores[q.axis][style] || 0) + 1;
+    }
+  });
+
+  let dominant = {};
+  for (let axis in scores) {
+    let styles = scores[axis];
+    let max = null, maxScore = -1;
+    for (let s in styles) {
+      if (styles[s] > maxScore) {
+        max = s;
+        maxScore = styles[s];
+      } else if (styles[s] === maxScore && Math.random() > 0.5) {
+        max = s;
+      }
+    }
+    dominant[axis] = max || "중립";
+  }
+  return dominant;
+}
+
+// =========================
+// 5. 상충 해설 찾기
+// =========================
+function getConflictInterpretation(dominant) {
+  let conflicts = [];
+  conflictPatterns.forEach(pattern => {
+    let match = true;
+    for (let key in pattern.combo) {
+      if (dominant[key] !== pattern.combo[key]) {
+        match = false;
+        break;
+      }
+    }
+    if (match) conflicts.push(pattern.interpretation);
+  });
+  if (conflicts.length > 2) conflicts = conflicts.slice(0, 2);
+  return conflicts.length > 0 ? conflicts.join("<br><br>") : "당신은 순응·맞섬·회피를 상황에 따라 조화롭게 활용하는 성숙한 사람입니다. 세부 해설에서 각 성향을 확인해보세요.";
+}
+
+// =========================
+// 6. 진행 상태
 // =========================
 let currentQuestion = 0;
 let answers = [];
 
 // =========================
-// 4. 질문 표시 함수
+// 7. 질문 표시
 // =========================
 function showQuestion(index) {
   const q = questions[index];
@@ -106,21 +190,17 @@ function showQuestion(index) {
     optionsDiv.appendChild(btn);
   });
 
-  // 진행도 표시
   document.getElementById("progress").innerText = `${index+1} / ${questions.length}`;
 }
 
 // =========================
-// 5. 답변 선택
+// 8. 답변 선택 → 다음으로
 // =========================
 function selectAnswer(answer) {
   answers[currentQuestion] = answer;
   nextQuestion();
 }
 
-// =========================
-// 6. 다음 질문
-// =========================
 function nextQuestion() {
   currentQuestion++;
   if (currentQuestion < questions.length) {
@@ -131,14 +211,14 @@ function nextQuestion() {
 }
 
 // =========================
-// 7. 결과 계산 및 출력
+// 9. 결과 출력
 // =========================
 function showResult() {
   const dominant = calculateResults(answers);
 
   let output = "<h2>결과</h2>";
   output += `<h3>종합 해설</h3>`;
-  output += `<p>당신은 ${Object.values(dominant).join(", ")} 성향을 지니고 있습니다. 이는 강점이 되기도 하지만 내적 갈등을 불러일으킬 수 있습니다. 그러나 적어도 당신은 자기 방식대로 잘 살아온 성숙한 사람입니다.</p>`;
+  output += `<p>당신은 ${Object.values(dominant).join(", ")} 성향을 지니고 있습니다. 이는 삶에서 강점이 되기도 하지만 내적 갈등의 원인이 되기도 합니다. 그러나 결국 당신은 자기 방식대로 살아온 성숙한 사람입니다.</p>`;
 
   output += `<h3>상충 해설</h3>`;
   output += `<p>${getConflictInterpretation(dominant)}</p>`;
@@ -156,8 +236,10 @@ function showResult() {
 }
 
 // =========================
-// 초기 실행
+// 10. 시작 버튼
 // =========================
-window.onload = () => {
+function startTest() {
+  document.getElementById("introContainer").style.display = "none";
+  document.getElementById("quizContainer").style.display = "block";
   showQuestion(currentQuestion);
-};
+}
