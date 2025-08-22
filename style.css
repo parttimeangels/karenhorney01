@@ -53,6 +53,29 @@ body {
   background: #0056b3;
 }
 
+.optionBtn {
+  display: block;         /* 한 줄 차지 */
+  width: 100%;            /* 양쪽 끝까지 */
+  margin: 10px 0;         /* 위아래 간격 */
+  padding: 14px;          /* 터치 영역 확보 */
+  font-size: 16px;        /* 읽기 좋은 글자 크기 */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
+  text-align: center;     /* 글자 가운데 정렬 */
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.optionBtn:hover {
+  background: #f0f0f0;
+  border-color: #bbb;
+}
+
+.optionBtn:active {
+  background: #e0e0e0;
+}
+
 /* 질문/결과 영역은 기존 스타일 유지 */
 #quizContainer, #result {
   background: #fff;
