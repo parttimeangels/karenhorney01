@@ -1,63 +1,105 @@
+/* 전체 컨테이너 */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #fafafa;
+  font-family: "Noto Sans KR", sans-serif;
   margin: 0;
   padding: 0;
+  background: #f9f9f9;
+  color: #333;
 }
 
 .container {
-  max-width: 650px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 20px;
 }
 
-h1, h2, h3 {
+/* 제목 */
+h1 {
+  font-size: 1.4rem;
   text-align: center;
-  color: #333;
+  margin-bottom: 20px;
 }
 
-p {
+/* 인트로 */
+#intro p {
+  font-size: 0.95rem;
   line-height: 1.6;
-  color: #444;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 button {
-  display: block;
-  margin: 20px auto;
-  padding: 12px 24px;
-  font-size: 16px;
-  background-color: #4CAF50;
-  color: white;
+  background: #4a90e2;
+  color: #fff;
   border: none;
-  border-radius: 8px;
+  padding: 12px 18px;
+  font-size: 1rem;
+  border-radius: 6px;
   cursor: pointer;
 }
+
 button:hover {
-  background-color: #45a049;
+  background: #357abd;
 }
 
+.button-group {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* 질문 영역 */
 .question {
-  margin-bottom: 18px;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: #fff;
+  margin-bottom: 25px;
 }
 
 .question p {
-  margin: 0 0 8px;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
+/* 라디오 옵션: 한 줄에 하나씩 */
 label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 15px;
+  display: block; /* 한 줄에 하나 */
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
 }
 
+/* 라디오 버튼 자체 크게 */
+input[type="radio"] {
+  margin-right: 10px;
+  transform: scale(1.2); /* 크기 키움 */
+}
+
+/* 진행 표시 */
+#progress {
+  text-align: right;
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* 결과 */
 #result {
-  margin-top: 25px;
-  padding: 15px;
+  margin-top: 30px;
+  padding: 20px;
+  background: #fff;
   border-radius: 8px;
-  background-color: #f0f0f0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#result h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#result h3 {
+  margin-top: 20px;
+  color: #4a90e2;
 }
