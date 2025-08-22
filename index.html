@@ -7,38 +7,36 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="container">
 
-  <!-- 안내 화면 -->
-  <div id="introContainer">
-    <h1>카렌 호나이의 신경증적 갈등 테스트</h1>
-    <p>
-      말은 잘하지만 행동이 따라주지 않는 사람,<br>
-      완벽히 일을 해내고도 정작 인정받지 못하는 사람,<br>
-      자신의 목표를 위해 모든 걸 불태우지만<br>
-      결국 주변을 외롭게 만드는 사람.<br><br>
+    <!-- 안내문 -->
+    <div id="introContainer">
+      <h1>카렌 호나이의 신경증적 갈등 심리테스트</h1>
+      <p>
+        말은 청산유수지만 실행은 하나도 못하는 사람,  
+        완벽하게 일을 잘 해내지만 남들의 인정을 못받는 사람,  
+        자신의 목표를 이루기 위해 모든 걸 불태우지만 주변 사람을 외롭게 만드는 사람.  
+        주변에 꼭 한 명쯤 있지 않나요?
+      </p>
+      <p>
+        정신분석학자 <b>카렌 호나이</b>는 이런 현대인의 갈등을  
+        <b>"신경증적 경향"</b>이라 이름 붙였습니다.  
+        이 테스트는 내가 발견하지 못한 내 안의 모순과 갈등을 이해하는  
+        첫걸음이 될 수 있습니다.
+      </p>
+      <button onclick="startTest()">테스트 시작하기</button>
+    </div>
 
-      우리 주변에 꼭 한 명쯤 있지 않나요?<br><br>
+    <!-- 테스트 문항 -->
+    <div id="quizContainer" style="display:none;">
+      <form id="testForm"></form>
+      <button type="button" onclick="submitTest()">제출하기</button>
+    </div>
 
-      정신분석학자 <b>카렌 호나이</b>는 이런 현대인의 모순된 태도를<br>
-      <b>‘순응, 맞섬, 회피’라는 신경증적 갈등</b>으로 설명했습니다.<br><br>
+    <!-- 결과 -->
+    <div id="result"></div>
 
-      이제 당신 차례입니다.<br>
-      나도 몰랐던 내 안의 모순과 갈등을 마주하고,<br>
-      자기 이해의 첫걸음을 내딛어 보세요.
-    </p>
-    <button id="startBtn" onclick="startTest()">테스트 시작하기</button>
   </div>
-
-  <!-- 질문 화면 -->
-  <div id="quizContainer" style="display:none;">
-    <small id="progress"></small>
-    <h2 id="questionText"></h2>
-    <div id="options"></div>
-  </div>
-
-  <!-- 결과 화면 -->
-  <div id="result" style="display:none;"></div>
-
   <script src="app.js"></script>
 </body>
 </html>
