@@ -178,12 +178,12 @@ function submitTest(answers) {
   output += `<h3>종합 해설</h3><p>${explanations[dominant]}</p>`;
 
   // 종합 해설 하단 축별 간단 설명
-  // ["관계","문제해결","자기중심","정서표현"].forEach(axis => {
-  //   const pick = answers.find(a => a.axis === axis);
-  //   if (pick) {
-  //     output += `<p><b>${axis}</b>: 당신은 ‘${pick.answer}’라고 답했습니다. ${pick.style} 성향이 드러납니다.</p>`;
-  //   }
-  // });
+["관계","문제해결","자기중심","정서표현"].forEach(axis => {
+const pick = answers.find(a => a.axis === axis);
+ if (pick) {
+     output += `<p><b>${axis}</b>: 당신은 ‘${pick.answer}’라고 답했습니다. ${pick.style} 성향이 드러납니다.</p>`;
+   }
+ });
 
   // 상충 해설
   output += conflictInterpretation(answers);
@@ -215,23 +215,21 @@ function startTest() {
   showQuestion();
 }
 
+//질문블럭 버튼스타일 깨질깨 여기서 확인
 function showQuestion() {
   const q = questions[currentQuestion];
   let html = `<div class="question"><p><b>${q.text}</b></p>`;
-
   q.options.forEach(opt => {
     html += `
-      <button 
-        class="option-btn" 
-        onclick="selectOption('${opt.style}', '${opt.answer}', '${q.axis}', '${q.text}', this)">
-        ${opt.answer}
-      </button>
+      <label class="option-card">
+        <input type="radio" name="q${currentQuestion}" value="${opt.answer}" hidden>
+        <span>${opt.answer}</span>
+      </label>
     `;
   });
-
   html += `</div>`;
   document.getElementById("question-container").innerHTML = html;
-  document.getElementById("progress").innerText = `(${currentQuestion+1}/${questions.length})`;
+  document.getElementById("progress").innerText = `(${currentQuestion + 1}/${questions.length})`;
 }
 
 function selectOption(style, answer, axis, text, btn) {
