@@ -219,27 +219,34 @@ function startTest() {
 function showQuestion() {
   const q = questions[currentQuestion];
   let html = `<div class="question"><p><b>${q.text}</b></p>`;
-  q.options.forEach(opt => {
+
+  q.options.forEach((opt, i) => {
     html += `
-      <label class="option-card">
-        <input type="radio" name="q${currentQuestion}" value="${opt.answer}" hidden>
-        <span>${opt.answer}</span>
-      </label>
+      <div class="option-card" onclick="selectOption(${i})">
+        ${opt.text}
+      </div>
     `;
   });
-  html += `</div>`;
+
+  html += `<p id="progress">(${currentQuestion+1}/${questions.length})</p>`;
   document.getElementById("question-container").innerHTML = html;
-  document.getElementById("progress").innerText = `(${currentQuestion + 1}/${questions.length})`;
 }
 
-function selectOption(style, answer, axis, text, btn) {
-  selectedAnswer = { axis, style, answer, text };
+function selectOption(i) {
+  // 모든 버튼 초기화
+  document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
+  // 선택된 버튼에 selected 추가
+  document.querySelectorAll('.option-card')[i].classList.add('selected');
 
-  // 선택 강조 표시
-  const buttons = document.querySelectorAll(".option-btn");
-  buttons.forEach(b => b.classList.remove("selected"));
-  btn.classList.add("selected");
+  // 답변 저장
+  answers[currentQuestion] = {
+    axis: questions[currentQuestion].axis,
+    style: questions[currentQuestion].style,
+    answer: questions[currentQuestion].options[i].text,
+    text: questions[currentQuestion].text
+  };
 }
+
 
 function nextQuestion() {
   if (!selectedAnswer) {
