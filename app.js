@@ -183,7 +183,6 @@ function submitTest(answers) {
   output += `
     <div class="button-group">
       <button id="restartBtn">다시 하기</button>
-      <button id="shareBtn">공유하기</button>
     </div>
   `;
   document.getElementById("result").innerHTML = output;
@@ -266,6 +265,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("click", (e) => {
     if (e.target && e.target.id === "restartBtn") restartTest();
-   // if (e.target && e.target.id === "shareBtn") shareResult();
+
   });
 });
