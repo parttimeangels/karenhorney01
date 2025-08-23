@@ -204,7 +204,7 @@ function conflictInterpretation(answers, dominant) {
     // 일관성 or 균형 해석
     output += `<p>
       여러 질문에서 <b>${dominant}</b> 성향이 드러납니다. 
-      이는 카렌호나이가 말한 신경증적 고착의 전형적 패턴이거나, 다양한 태도를 조율하는 균형 성향일 수 있습니다.<br><br>
+      <br><br>
       👉 ${dominant}의 장점은 분명하지만, 심리적 유연성을 더 기를 필요가 있습니다.<br><br>
       <b>개선 방향:</b> ${improvements[dominant]}
     </p>`;
