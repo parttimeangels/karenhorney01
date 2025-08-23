@@ -182,15 +182,14 @@ const improvements = {
 };
 
 // =========================
-// 5. 세부 해설 (상충 로직 개선)
-// =========================
-// =========================
-// 4. 세부 해설 (상충 vs 일관성 + 개선방향)
+// 5. 세부 해설 (상충 vs 일관성 + 개선방향)
 // =========================
 function conflictInterpretation(answers, dominant) {
   let output = "<h3>세부 해설</h3>";
 
+  // dominant 성향 질문 하나 뽑기
   const rep = answers.find(a => a.style === dominant);
+  // 다른 성향 중 하나 뽑기
   const conflict = answers.find(a => a.style !== dominant);
 
   if (rep && conflict) {
@@ -224,8 +223,7 @@ function submitTest(answers) {
 
   let output = "<h2>결과</h2>";
   output += `<h3>종합 해설</h3><p>${explanations[dominant]}</p>`;
-  output += conflictInterpretation(answers);
-  output += `<h3>개선 방향</h3><p>${improvements[dominant]}</p>`;
+  output += conflictInterpretation(answers, dominant);
   output += `
     <div class="button-group">
       <button id="restartBtn">다시 하기</button>
