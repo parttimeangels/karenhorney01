@@ -190,11 +190,11 @@ function submitTest(answers) {
 
   // 버튼
   output += `
-    <div class="button-group">
-      <button onclick="restartTest()">다시 하기</button>
-      <button onclick="shareResult()">공유하기</button>
-    </div>
-  `;
+  <div class="button-group">
+    <button id="restartBtn">다시 하기</button>
+    <button id="shareBtn">공유하기</button>
+  </div>
+`;
 
   document.getElementById("result").innerHTML = output;
 }
@@ -259,3 +259,19 @@ function shareResult() {
     alert("결과가 클립보드에 복사되었습니다. 친구에게 붙여넣어 공유하세요!");
   });
 }
+
+// =========================
+// 7. 이벤트 리스너 등록 (CSP 대응)
+// =========================
+document.addEventListener("DOMContentLoaded", () => {
+  // intro 영역 버튼
+  document.getElementById("startBtn").addEventListener("click", startTest);
+  document.getElementById("nextBtn").addEventListener("click", nextQuestion);
+
+  // 결과 화면에서 추가되는 버튼(동적으로 생기므로 setTimeout으로 연결)
+  document.addEventListener("click", (e) => {
+    if (e.target && e.target.id === "restartBtn") restartTest();
+    if (e.target && e.target.id === "shareBtn") shareResult();
+  });
+});
+
