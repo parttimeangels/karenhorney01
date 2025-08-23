@@ -1,76 +1,104 @@
-/* 컨테이너 중앙 정렬 */
+/* ========================= */
+/* 공통 컨테이너 정렬 */
+/* ========================= */
 .container {
-  max-width: 700px;
+  max-width: 600px;
   margin: 0 auto;
-  padding: 30px 20px;
+  padding: 20px;
   background: #fdfaf3; /* 아이보리 */
-  min-height: 100vh;
+  color: #222;
+  text-align: center;
 }
 
-/* 질문 텍스트 */
+/* ========================= */
+/* 질문 텍스트 강조 */
+/* ========================= */
 .question p {
-  font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 20px;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
 }
 
-/* 답변 옵션 (선택지 카드) */
+/* ========================= */
+/* 답변 옵션 버튼 */
+/* ========================= */
 .option-card {
   display: block;
   width: 100%;
   padding: 14px 18px;
   margin: 10px 0;
-  background: #fdfaf3; /* 배경색 동일 */
-  color: #222; /* 기본 글씨 검정 */
+  background: #fdfaf3;   /* 아이보리 */
+  color: #222;           /* 검정 글씨 */
   border: 1px solid #ccc;
-  border-radius: 0;
+  border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.option-card span {
+  display: block;
 }
 
 /* 선택된 상태 */
 .option-card input:checked + span,
 .option-card.selected span {
-  display: block;
-  background: #1A00FF;
-  color: #fff;
-  padding: 14px 18px;
+  background: #1A00FF;  /* 파란색 */
+  color: #fff;          /* 흰 글씨 */
 }
 
-/* hover 상태 */
+/* hover 효과 */
 .option-card:hover {
-  border-color: #1A00FF;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  background: #eee;
 }
 
-/* 공통 버튼 (next, restart, share, start) */
-button {
+/* ========================= */
+/* 다음 버튼 스타일 */
+/* ========================= */
+#nextBtn {
   display: inline-block;
   width: 100%;
   padding: 14px 18px;
   margin-top: 15px;
-  background: #fdfaf3; /* 처음엔 아이보리 */
-  color: #222; /* 기본 검정 글씨 */
+  background: #fdfaf3;   /* 아이보리 (기본) */
+  color: #222;           /* 검정 글씨 */
   border: 1px solid #ccc;
-  border-radius: 0;
+  border-radius: 8px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-/* hover */
-button:hover {
-  border-color: #1A00FF;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+#nextBtn:hover,
+#nextBtn:active {
+  background: #1A00FF;  /* 파란색 */
+  color: #fff;
 }
 
-/* 클릭된 상태 (active 효과) */
-button:active, button.selected {
+/* ========================= */
+/* 결과 화면 버튼 (다시하기, 공유하기) */
+/* ========================= */
+.button-group button {
+  display: inline-block;
+  width: 48%;
+  padding: 14px 18px;
+  margin: 10px 1%;
+  background: #fdfaf3;   /* 기본은 아이보리 */
+  color: #222;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.button-group button:hover,
+.button-group button:active {
   background: #1A00FF;
   color: #fff;
-  border: none;
 }
