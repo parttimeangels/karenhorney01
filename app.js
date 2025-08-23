@@ -186,37 +186,31 @@ const improvements = {
 // =========================
 function conflictInterpretation(answers) {
   let output = "<h3>세부 해설</h3>";
+  const conflicts = [];
 
-  const relation = answers.filter(a => a.axis === "관계");
-  const coping   = answers.filter(a => a.axis === "문제해결");
-  const emotion  = answers.filter(a => a.axis === "정서표현");
-  const self     = answers.filter(a => a.axis === "자기중심");
+  const relation = answers.find(a => a.axis === "관계");
+  const coping   = answers.find(a => a.axis === "문제해결");
+  const emotion  = answers.find(a => a.axis === "정서표현");
+  const self     = answers.find(a => a.axis === "자기중심");
 
-  relation.forEach(r => {
-    coping.forEach(c => {
-      if (r.style !== c.style) {
-        output += `<p>“${r.text}”에서 ‘${r.answer}’, 하지만 “${c.text}”에서는 ‘${c.answer}’. 👉 관계에서는 <b>${r.style}</b>, 문제해결에서는 <b>${c.style}</b>. 작은 실행을 우선시해 보세요.</p>`;
-      }
+  if (relation && coping && relation.style !== coping.style) {
+    conflicts.push(`“${relation.text}”에서 ‘${relation.answer}’, 하지만 “${coping.text}”에서는 ‘${coping.answer}’. 👉 관계에서는 <b>${relation.style}</b>, 문제해결에서는 <b>${coping.style}</b>. 작은 실행을 우선시해 보세요.`);
+  }
+
+  if (relation && self && relation.style !== self.style) {
+    conflicts.push(`“${relation.text}”에서 ‘${relation.answer}’, 하지만 “${self.text}”에서는 ‘${self.answer}’. 👉 겉으로는 <b>${relation.style}</b>, 속으로는 <b>${self.style}</b>. 의견이 받아들여지지 않아도 내 가치는 변하지 않습니다.`);
+  }
+
+  if (coping && emotion && coping.style !== emotion.style) {
+    conflicts.push(`“${coping.text}”에서 ‘${coping.answer}’, 하지만 “${emotion.text}”에서는 ‘${emotion.answer}’. 👉 문제해결에서는 <b>${coping.style}</b>, 감정표현에서는 <b>${emotion.style}</b>. 감정의 힘을 실행으로 옮겨 보세요.`);
+  }
+
+  // ✅ 최대 2개만 출력
+  if (conflicts.length > 0) {
+    conflicts.slice(0, 2).forEach(msg => {
+      output += `<p>${msg}</p>`;
     });
-  });
-
-  relation.forEach(r => {
-    self.forEach(s => {
-      if (r.style !== s.style) {
-        output += `<p>“${r.text}”에서 ‘${r.answer}’, 하지만 “${s.text}”에서는 ‘${s.answer}’. 👉 겉으로는 <b>${r.style}</b>, 속으로는 <b>${s.style}</b>. 의견이 받아들여지지 않아도 내 가치는 변하지 않습니다.</p>`;
-      }
-    });
-  });
-
-  coping.forEach(c => {
-    emotion.forEach(e => {
-      if (c.style !== e.style) {
-        output += `<p>“${c.text}”에서 ‘${c.answer}’, 하지만 “${e.text}”에서는 ‘${e.answer}’. 👉 문제해결에서는 <b>${c.style}</b>, 감정표현에서는 <b>${e.style}</b>. 감정의 힘을 실행으로 옮겨 보세요.</p>`;
-      }
-    });
-  });
-
-  if (!output || output === "<h3>세부 해설</h3>") {
+  } else {
     output += "<p>당신의 답변에서는 큰 상충이 드러나지 않았습니다. 이는 내적 태도의 일관성을 보여줍니다.</p>";
   }
 
