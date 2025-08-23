@@ -80,7 +80,8 @@ button {
 #startBtn,
 .button-group button {
   display: block;
-  width: 100%;
+  width: 60%;
+  align-items: center;
   padding: 14px;
   margin: 14px 0;
   font-size: 1rem;
