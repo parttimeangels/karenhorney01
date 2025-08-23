@@ -1,51 +1,22 @@
 /* ========================= */
-/* 기본 레이아웃 & 타이포그래피 */
+/* 공통 컨테이너 정렬 */
 /* ========================= */
-body {
-  font-family: "Noto Sans KR", sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #fdfaf3; /* 아이보리 배경 */
-  color: #222;
-}
-
 .container {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
+  background: #fdfaf3; /* 아이보리 */
+  color: #222;
   text-align: center;
 }
 
 /* ========================= */
-/* 질문 텍스트 */
+/* 질문 텍스트 강조 */
 /* ========================= */
 .question p {
   font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-
-/* ========================= */
-/* intro 시작 버튼 */
-/* ========================= */
-#startBtn {
-  display: inline-block;
-  padding: 14px 28px;
-  margin: 25px auto;
-  background: #fdfaf3;   /* 기본 아이보리 */
-  color: #222;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-#startBtn:hover,
-#startBtn:active {
-  background: #1A00FF;  /* 선택 강조 */
-  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
 }
 
 /* ========================= */
@@ -56,9 +27,10 @@ body {
   width: 100%;
   padding: 14px 18px;
   margin: 10px 0;
-  background: #fdfaf3;   /* 기본 아이보리 */
+  background: #fdfaf3;   /* 아이보리 */
   color: #222;           /* 검정 글씨 */
   border: 1px solid #ccc;
+  border-radius: 8px;
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -82,16 +54,18 @@ body {
 }
 
 /* ========================= */
-/* 다음 버튼 */
+/* 다음 버튼 스타일 */
 /* ========================= */
 #nextBtn {
-  display: inline-block;
-  width: 95%;            /* 답변 버튼보다 살짝 좁게 */
+  display: block;
+  width: 100%;
+  max-width: 300px;      /* 테스트 시작하기 버튼과 동일한 크기 */
+  margin: 20px auto;     /* 가운데 정렬 */
   padding: 14px 18px;
-  margin: 20px auto;
-  background: #fdfaf3;   /* 기본 아이보리 */
-  color: #222;
+  background: #fdfaf3;   /* 아이보리 (기본) */
+  color: #222;           /* 검정 글씨 */
   border: 1px solid #ccc;
+  border-radius: 8px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
@@ -101,26 +75,23 @@ body {
 
 #nextBtn:hover,
 #nextBtn:active {
-  background: #1A00FF;
+  background: #1A00FF;  /* 파란색 */
   color: #fff;
 }
 
 /* ========================= */
-/* 결과 화면 버튼 (다시 하기, 공유하기) */
+/* 결과 화면 버튼 (다시하기, 공유하기) */
 /* ========================= */
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
 .button-group button {
-  flex: 1;
-  margin: 0 5px;
+  display: block;
+  width: 100%;
+  max-width: 300px;      /* 테스트 시작하기 버튼과 동일한 크기 */
+  margin: 10px auto;     /* 가운데 정렬 */
   padding: 14px 18px;
-  background: #fdfaf3;
+  background: #fdfaf3;   /* 기본은 아이보리 */
   color: #222;
   border: 1px solid #ccc;
+  border-radius: 8px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
@@ -141,24 +112,14 @@ body {
   .container {
     padding: 15px;
   }
-
   .question p {
     font-size: 1rem;
   }
-
   .option-card,
-  #nextBtn {
+  #nextBtn,
+  .button-group button {
     font-size: 0.95rem;
     padding: 12px 14px;
-  }
-
-  .button-group {
-    flex-direction: column;
-  }
-
-  .button-group button {
-    width: 100%;
-    margin: 5px 0;
   }
 }
 
@@ -166,13 +127,12 @@ body {
   .container {
     padding: 10px;
   }
-
   .question p {
     font-size: 0.95rem;
   }
-
   .option-card,
-  #nextBtn {
+  #nextBtn,
+  .button-group button {
     font-size: 0.9rem;
     padding: 10px 12px;
   }
