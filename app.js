@@ -217,7 +217,7 @@ function startTest() {
 
 function showQuestion() {
   const q = questions[currentQuestion];
-  let html = `<div class="question"><p>${q.text}</p>`;
+  let html = `<div class="question"><p><b>${q.text}</b></p>`;
 
   q.options.forEach(opt => {
     html += `
