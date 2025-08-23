@@ -1,90 +1,49 @@
-/* 전체 레이아웃 */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-  background: #f2f4f7;
-  margin: 0;
-  padding: 16px;
-  display: flex;
-  justify-content: center;
-}
-
-/* 메인 컨테이너 */
-#app {
-  width: 100%;
-  max-width: 480px;
-}
-
-/* 카드형 박스 */
-.card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
-
-/* 제목 & 설명 */
-#intro h2 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 12px;
-  text-align: center;
-}
-
-#intro p {
-  font-size: 15px;
-  color: #444;
-  text-align: center;
+  font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  margin: 20px;
   line-height: 1.5;
+  background: #f9f9f9;
+  color: #333;
 }
 
-/* 질문 텍스트 */
-#questionText {
-  font-size: 18px;
-  font-weight: 600;
+/* 질문 카드 */
+.question {
+  background: #fff;
+  padding: 16px;
   margin-bottom: 12px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-/* 진행 상황 */
-#progress {
-  font-size: 13px;
-  color: #888;
-  margin-bottom: 16px;
-  text-align: right;
-}
-
-/* 선택지 박스를 카드형 버튼으로 */
+/* 선택지 버튼 (카드형) */
 .optionBtn {
   display: block;
   width: 100%;
   margin: 10px 0;
-  padding: 16px;
+  padding: 14px;
   font-size: 16px;
   font-weight: 500;
   border: 1px solid #ddd;
   border-radius: 10px;
   background: #fff;
   cursor: pointer;
-  transition: all 0.2s ease;
   text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: all 0.2s;
 }
 
 .optionBtn:hover {
   background: #f5f7fa;
-  border-color: #bbb;
 }
 
 .optionBtn.selected {
   background: #007BFF;
   color: #fff;
   border-color: #007BFF;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
 
-/* 다음 버튼 */
-#nextBtn {
-  margin-top: 18px;
+/* 버튼 */
+#nextBtn, #intro button {
+  margin-top: 16px;
   padding: 14px;
   width: 100%;
   font-size: 16px;
@@ -94,11 +53,9 @@ body {
   background: #007BFF;
   color: #fff;
   cursor: pointer;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
 }
 
 #nextBtn:disabled {
   background: #bbb;
   cursor: not-allowed;
-  box-shadow: none;
 }
