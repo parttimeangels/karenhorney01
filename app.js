@@ -217,7 +217,12 @@ function showQuestion() {
   const q = questions[currentQuestion];
   let html = `<div class="question"><p>${q.text}</p>`;
   q.options.forEach(opt => {
-    html += `<label><input type="radio" name="q${currentQuestion}" value="${opt.answer}"> ${opt.answer}</label>`;
+    html += `
+  <label class="option-card">
+    <input type="radio" name="q${currentQuestion}" value="${opt.answer}" hidden>
+    <span>${opt.answer}</span>
+  </label>
+`;
   });
   html += `</div>`;
   document.getElementById("question-container").innerHTML = html;
