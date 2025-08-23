@@ -168,14 +168,7 @@ function conflictInterpretation(answers) {
 // =========================
 // 5. 제출
 // =========================
-function submitTest() {
-  const answers = questions.map((q, i) => {
-    const val = document.querySelector(`input[name="q${i}"]:checked`);
-    if (!val) return null;
-    const opt = q.options.find(o => o.answer === val.value);
-    return { axis: q.axis, style: opt.style, answer: opt.answer, text: q.text };
-  }).filter(Boolean);
-
+function submitTest(answers) {
   const scores = calculateResults(answers);
   const dominant = classify(scores);
 
@@ -184,7 +177,7 @@ function submitTest() {
   // 종합 해설
   output += `<h3>종합 해설</h3><p>${explanations[dominant]}</p>`;
 
-  // 종합 해설 하단에 성향별 간단 해설 붙이기
+  // 종합 해설 하단 축별 간단 설명
   ["관계","문제해결","자기중심","정서표현"].forEach(axis => {
     const pick = answers.find(a => a.axis === axis);
     if (pick) {
@@ -192,7 +185,7 @@ function submitTest() {
     }
   });
 
-  // 상충 해설 → 세부 해설로 출력
+  // 상충 해설
   output += conflictInterpretation(answers);
 
   // 버튼
@@ -204,4 +197,65 @@ function submitTest() {
   `;
 
   document.getElementById("result").innerHTML = output;
+}
+
+// =========================
+// 6. 순차 진행 로직
+// =========================
+let currentQuestion = 0;
+let userAnswers = [];
+
+function startTest() {
+  document.getElementById("intro").style.display = "none";
+  document.getElementById("testForm").style.display = "block";
+  currentQuestion = 0;
+  userAnswers = [];
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = questions[currentQuestion];
+  let html = `<div class="question"><p>${q.text}</p>`;
+  q.options.forEach(opt => {
+    html += `<label><input type="radio" name="q${currentQuestion}" value="${opt.answer}"> ${opt.answer}</label>`;
+  });
+  html += `</div>`;
+  document.getElementById("question-container").innerHTML = html;
+  document.getElementById("progress").innerText = `(${currentQuestion+1}/${questions.length})`;
+}
+
+function nextQuestion() {
+  const selected = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
+  if (!selected) {
+    alert("답변을 선택해주세요.");
+    return;
+  }
+  const opt = questions[currentQuestion].options.find(o => o.answer === selected.value);
+  userAnswers.push({
+    axis: questions[currentQuestion].axis,
+    style: opt.style,
+    answer: opt.answer,
+    text: questions[currentQuestion].text
+  });
+
+  currentQuestion++;
+  if (currentQuestion < questions.length) {
+    showQuestion();
+  } else {
+    document.getElementById("testForm").style.display = "none";
+    submitTest(userAnswers); // 마지막 질문 → 결과 출력
+  }
+}
+
+function restartTest() {
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("intro").style.display = "block";
+  document.getElementById("testForm").style.display = "none";
+}
+
+function shareResult() {
+  const resultText = document.getElementById("result").innerText;
+  navigator.clipboard.writeText(resultText).then(() => {
+    alert("결과가 클립보드에 복사되었습니다. 친구에게 붙여넣어 공유하세요!");
+  });
 }
