@@ -178,23 +178,23 @@ function submitTest(answers) {
   output += `<h3>종합 해설</h3><p>${explanations[dominant]}</p>`;
 
   // 종합 해설 하단 축별 간단 설명
-["관계","문제해결","자기중심","정서표현"].forEach(axis => {
-const pick = answers.find(a => a.axis === axis);
- if (pick) {
-     output += `<p><b>${axis}</b>: 당신은 ‘${pick.answer}’라고 답했습니다. ${pick.style} 성향이 드러납니다.</p>`;
-   }
- });
+  ["관계","문제해결","자기중심","정서표현"].forEach(axis => {
+    const pick = answers.find(a => a.axis === axis);
+    if (pick) {
+      output += `<p><b>${axis}</b>: 당신은 ‘${pick.answer}’라고 답했습니다. ${pick.style} 성향이 드러납니다.</p>`;
+    }
+  });
 
   // 상충 해설
   output += conflictInterpretation(answers);
 
   // 버튼
   output += `
-  <div class="button-group">
-    <button id="restartBtn">다시 하기</button>
-    <button id="shareBtn">공유하기</button>
-  </div>
-`;
+    <div class="button-group">
+      <button id="restartBtn">다시 하기</button>
+      <button id="shareBtn">공유하기</button>
+    </div>
+  `;
 
   document.getElementById("result").innerHTML = output;
 }
@@ -204,18 +204,15 @@ const pick = answers.find(a => a.axis === axis);
 // =========================
 let currentQuestion = 0;
 let userAnswers = [];
-let selectedAnswer = null;
 
 function startTest() {
   document.getElementById("intro").style.display = "none";
   document.getElementById("testForm").style.display = "block";
   currentQuestion = 0;
   userAnswers = [];
-  selectedAnswer = null;
   showQuestion();
 }
 
-//질문블럭 버튼스타일 깨질깨 여기서 확인
 function showQuestion() {
   const q = questions[currentQuestion];
   let html = `<div class="question"><p><b>${q.text}</b></p>`;
@@ -238,8 +235,8 @@ function selectOption(i) {
   // 선택된 버튼에 selected 추가
   document.querySelectorAll('.option-card')[i].classList.add('selected');
 
-  // 답변 저장
-  answers[currentQuestion] = {
+  // 답변 저장 (항상 userAnswers에 저장)
+  userAnswers[currentQuestion] = {
     axis: questions[currentQuestion].axis,
     style: questions[currentQuestion].style,
     answer: questions[currentQuestion].options[i].text,
@@ -247,15 +244,11 @@ function selectOption(i) {
   };
 }
 
-
 function nextQuestion() {
-  if (!selectedAnswer) {
+  if (!userAnswers[currentQuestion]) {
     alert("답변을 선택해주세요.");
     return;
   }
-
-  userAnswers.push(selectedAnswer);
-  selectedAnswer = null; // 초기화
 
   currentQuestion++;
   if (currentQuestion < questions.length) {
@@ -291,3 +284,4 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target && e.target.id === "shareBtn") shareResult();
   });
 });
+
