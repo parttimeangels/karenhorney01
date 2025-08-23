@@ -130,23 +130,45 @@ function classify(scores) {
 }
 
 // =========================
-// 3. 종합 해설
+// 3. 종합 해설 (400자 내외)
 // =========================
 const explanations = {
-  "순응": "…",
-  "투쟁": "…",
-  "완벽주의": "…",
-  "균형": "…"
+  "순응": "당신은 관계 속에서 타인의 기대와 인정에 민감하게 반응하며, 스스로보다 타인을 먼저 배려하는 태도를 보입니다. 이러한 성향은 주변을 편안하게 하고 신뢰를 얻게 하지만, 정작 본인의 욕구와 욕망은 억눌리기 쉽습니다. 인정받지 못할 때 깊은 실망과 분노가 쌓이며, 속으로는 공허감이 자주 찾아올 수 있습니다. 그러나 이러한 갈등은 당신이 단순히 약하다는 의미가 아니라, 사랑받고자 하는 욕구와 따뜻한 배려심이 내면에서 부딪히는 증거입니다. 이를 인식하고 ‘내가 원하는 것’을 조금씩 표현한다면, 성숙과 자기 확립의 길을 열 수 있습니다.",
+
+  "투쟁": "당신은 자기 의견을 분명히 내세우며 불의를 참지 못하는 강한 투쟁적 성향을 보입니다. 이는 추진력과 리더십으로 이어져 많은 상황에서 문제 해결의 중심에 서게 하지만, 때로는 상대의 약함을 외면하거나 갈등을 불필요하게 키울 위험도 있습니다. 내 뜻을 끝까지 관철하고자 하는 힘은 장점이지만, 인정받지 못했을 때 분노가 쉽게 커지고 관계가 단절될 수 있습니다. 그러나 당신의 내면에는 정의에 대한 열망과 더 나은 세상을 만들고자 하는 진심이 있습니다. 이 힘을 균형 있게 다룰 때, 타인과 함께 성장하는 성숙한 리더십을 발휘할 수 있습니다.",
+
+  "완벽주의": "당신은 완벽을 추구하며 매사에 꼼꼼한 준비를 하는 성향이 강합니다. 이로 인해 신뢰와 존중을 얻기도 하지만, 지나치게 완벽을 좇다 보면 실행이 늦어져 기회를 놓칠 수 있습니다. 또한 자기 부족함을 끊임없이 분석하며 스스로를 몰아붙이는 경향이 있어 번아웃과 좌절감을 경험할 때도 있습니다. 그러나 완벽을 향한 추구는 단순한 강박이 아니라, 더 나은 삶과 성취를 향한 내적 열망이기도 합니다. 작은 불완전함을 받아들이고 현재의 자신을 인정할 때, 당신의 섬세함과 진지함은 강력한 장점으로 빛을 발하게 될 것입니다.",
+
+  "균형": "당신은 순응·투쟁·완벽주의 사이에서 균형을 유지하며 상황에 따라 태도를 유연하게 바꾸는 능력을 지니고 있습니다. 이는 다양한 상황에서 적응력을 발휘하게 하고, 타인의 관점을 이해하는 힘으로 이어집니다. 그러나 때로는 ‘정체성이 모호하다’는 평가를 받을 수도 있으며, 스스로도 흔들리는 느낌을 받을 수 있습니다. 하지만 이 유연함은 성숙한 정신적 힘의 증거이며, 내적 갈등을 받아들이고 조율해 나가려는 성장의 과정입니다. 당신은 단순히 한 가지 성향에 갇히지 않고, 삶의 순간마다 가장 적절한 태도를 선택할 수 있는 지혜를 지닌 사람입니다."
 };
 
+
 // =========================
-// 4. 세부 해설
+// 4. 세부 해설 (상충 해설 확장판)
 // =========================
 function conflictInterpretation(answers) {
   let output = "<h3>세부 해설</h3>";
-  // … (기존 그대로)
+
+  const relation = answers.find(a => a.axis === "관계");
+  const coping = answers.find(a => a.axis === "문제해결");
+  const emotion = answers.find(a => a.axis === "정서표현");
+  const self = answers.find(a => a.axis === "자기중심");
+
+  if (relation && coping && relation.style !== coping.style) {
+    output += `<p>“${relation.text}”에서 ‘${relation.answer}’라고 답했지만, “${coping.text}”에서는 ‘${coping.answer}’라고 하셨습니다. 이는 ‘관계에서는 ${relation.style}, 문제해결에서는 ${coping.style}’ 성향으로 볼 수 있습니다. 착하지만 답답한 인상을 주고, 스스로도 기회를 잃으며 공허함을 느낄 수 있습니다. 👉 개선 방향: 완벽한 준비보다 작은 실행을 우선시해 보세요.</p>`;
+  }
+
+  if (relation && self && relation.style !== self.style) {
+    output += `<p>“${relation.text}”에서 ‘${relation.answer}’라고 답했지만, “${self.text}”에서는 ‘${self.answer}’라고 하셨습니다. 이는 ‘겉으로는 ${relation.style}, 속으로는 ${self.style}’이라는 이중적 성향을 드러냅니다. 무시당할 때 실망과 분노가 쌓이는 패턴입니다. 👉 개선 방향: 내 의견이 받아들여지지 않아도 내 가치는 변하지 않는다는 확신을 키워보세요.</p>`;
+  }
+
+  if (coping && emotion && coping.style !== emotion.style) {
+    output += `<p>“${coping.text}”에서 ‘${coping.answer}’라고 답했지만, “${emotion.text}”에서는 ‘${emotion.answer}’라고 하셨습니다. 이는 ‘문제해결에서는 ${coping.style}, 감정에서는 ${emotion.style}’이라는 상반된 태도를 드러냅니다. 중요한 일은 미루면서도 사소한 일에는 감정을 즉각적으로 드러낼 수 있습니다. 👉 개선 방향: 감정 표현의 에너지를 작은 실행에도 옮겨보세요.</p>`;
+  }
+
   return output;
 }
+
 
 // =========================
 // 5. 제출
@@ -200,12 +222,12 @@ function selectOption(i) {
   document.querySelectorAll('.option-card')[i].classList.add('selected');
 
   // ✅ 수정된 부분
-  userAnswers[currentQuestion] = {
-    axis: questions[currentQuestion].axis,
-    style: questions[currentQuestion].options[i].style,   // ✅ 수정됨
-    answer: questions[currentQuestion].options[i].answer, // ✅ 수정됨 (text → answer)
-    text: questions[currentQuestion].text
-  };
+userAnswers[currentQuestion] = {
+  axis: questions[currentQuestion].axis,
+  style: questions[currentQuestion].options[i].style,   // 옵션에서 style 가져오기
+  answer: questions[currentQuestion].options[i].answer, // 옵션에서 answer 가져오기
+  text: questions[currentQuestion].text
+};
 }
 
 function nextQuestion() {
