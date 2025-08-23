@@ -1,123 +1,147 @@
-/* 기본 레이아웃 */
+좋습니다. 말씀하신 대로 **모바일에서 세로 1열 → 데스크탑에서 2~~3열 → 와이드에서 3~~4열**로 반응형 배치를 보장하는 **완성형 CSS**를 드리겠습니다.
+
+```css
+/* =========================
+   기본 레이아웃
+========================= */
 body {
-  font-family: 'Helvetica', 'Arial', sans-serif;
-  background: #fafafa;
+  font-family: "Noto Sans KR", sans-serif;
   margin: 0;
   padding: 0;
+  background: #f8f9fa;
   color: #333;
-  line-height: 1.6;
 }
 
 .container {
-  max-width: 700px;
-  margin: 40px auto;
+  max-width: 900px;
+  margin: 0 auto;
   padding: 20px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
 }
 
-/* 제목 */
 h1, h2, h3 {
-  text-align: center;
   margin-bottom: 20px;
 }
 
-/* 질문 */
+/* =========================
+   질문 영역
+========================= */
 .question {
   margin-bottom: 20px;
 }
 
 .question p {
-  font-size: 1.1em;
-  margin-bottom: 15px;
+  font-size: 18px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* =========================
+   옵션 카드 (버튼 스타일)
+========================= */
+.option-card {
+  display: inline-block;
+  background: #fff;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;            /* 모바일 기본: 1열 */
+  box-sizing: border-box;
+}
+
+.option-card span {
+  font-size: 16px;
   font-weight: 500;
 }
 
-/* 공통 버튼 스타일 */
-.option-btn {
-  display: block;
-  width: 100%;
-  margin: 10px 0;
-  padding: 14px 16px;
-  font-size: 1em;
-  text-align: center;
-  border-radius: 10px;
-  border: 2px solid #ddd;
-  background: #f9f9f9;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.option-card:hover {
+  border-color: #007bff;
+  background: #f0f8ff;
 }
 
-.option-btn:hover {
-  background: #f0f0f0;
-  border-color: #bbb;
+.option-card input:checked + span {
+  color: #007bff;
+  font-weight: 700;
 }
 
-.option-btn.selected {
-  background: #4CAF50;
-  color: white;
-  border-color: #4CAF50;
-  font-weight: bold;
-}
-
-/* 진행도 표시 */
-#progress {
-  text-align: center;
-  margin: 15px 0;
-  font-size: 0.9em;
-  color: #666;
-}
-
-/* 버튼 그룹 */
+/* =========================
+   버튼 영역
+========================= */
 .button-group {
-  text-align: center;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
-.button-group button {
-  background: #007BFF;
+button {
+  background: #007bff;
   color: white;
   border: none;
-  padding: 12px 18px;
-  margin: 5px;
+  padding: 12px 24px;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 1em;
+  font-size: 16px;
+  margin: 5px;
   transition: background 0.2s ease;
 }
 
-.button-group button:hover {
+button:hover {
   background: #0056b3;
 }
 
-/* ===================== */
-/* 📱 모바일 전용 (좁은 화면) */
-/* ===================== */
-@media (max-width: 768px) {
-  .option-btn {
+/* =========================
+   진행 표시
+========================= */
+#progress {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* =========================
+   반응형 레이아웃
+========================= */
+
+/* 📱 모바일 (≤600px): 1열 */
+@media (max-width: 600px) {
+  .option-card {
     width: 100%;
-    font-size: 1em;
-    padding: 14px;
+    margin: 10px 0;
   }
 }
 
-/* ===================== */
-/* 💻 데스크탑 전용 (넓은 화면) */
-/* ===================== */
-@media (min-width: 769px) {
-  .question {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .option-btn {
-    width: 60%; /* 중앙에 적당한 폭 */
-    font-size: 1.05em;
-  }
-
-  .option-btn + .option-btn {
-    margin-top: 12px;
+/* 💻 태블릿 & 데스크탑 (601px~1024px): 2열 */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .option-card {
+    width: 45%;   /* 2개씩 배치 */
   }
 }
+
+/* 🖥️ 와이드 화면 (1025px 이상): 3~4열 */
+@media (min-width: 1025px) {
+  .option-card {
+    width: 30%;   /* 3개씩 배치 */
+    max-width: 280px;
+  }
+}
+```
+
+---
+
+### 🔑 포인트
+
+1. **모바일 (≤600px)**
+   → `width: 100%` → 한 줄에 하나씩 꽉 차게.
+
+2. **데스크탑 (601\~1024px)**
+   → `width: 45%` → 두 줄에 나눠서 배치.
+
+3. **와이드 화면 (1025px 이상)**
+   → `width: 30%; max-width: 280px;` → 3\~4개 카드가 한 줄에 들어가되 너무 넓어지지 않음.
+
+---
+
+👉 이 CSS를 `style.css`에 덮어씌우면 **모바일 앱 UI + 데스크탑 반응형 레이아웃**이 정상 작동할 겁니다.
+
+원하시면 제가 **app.js의 showQuestion()** 부분도 버튼 선택이 확실히 되도록 `input:checked + span` 스타일을 맞춰드릴까요?
