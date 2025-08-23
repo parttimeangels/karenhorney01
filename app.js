@@ -185,26 +185,28 @@ const improvements = {
 // 5. 세부 해설 (상충 vs 일관성 + 개선방향)
 // =========================
 function conflictInterpretation(answers, dominant) {
-  let output = ""; // 타이틀 삭제
+  let output = ""; // "세부 해설" 타이틀 제거
 
   const rep = answers.find(a => a.style === dominant);
   const others = answers.filter(a => a.style !== dominant);
   const conflict = others.length > 0 ? others[Math.floor(Math.random() * others.length)] : null;
 
-  if (rep && conflict) {
+  if (rep && conflict && dominant !== "균형") {
+    // 상충 해석
     output += `<p>
       “${rep.text}”에서 ‘${rep.answer}’라고 답하셨습니다. 
       하지만 “${conflict.text}”에서는 ‘${conflict.answer}’라고 하셨네요.<br><br>
       👉 <b>${dominant}</b> 성향이 강하지만 동시에 
-      <b>${conflict.style}</b> 성향도 드러나, 내적 갈등을 보여줍니다.<br><br>
-      <b>개선 방향:</b> ${improvements[dominant]} 
+      <b>${conflict.style}</b> 성향도 드러납니다.<br><br>
+      <b>개선 방향:</b> ${improvements[dominant]}
     </p>`;
-  } else if (rep) {
+  } else {
+    // 일관성 or 균형 해석
     output += `<p>
-      여러 질문에서 <b>${dominant}</b> 성향이 반복적으로 드러납니다. 
-      이는 호나이가 말한 신경증적 고착의 전형적 패턴입니다.<br><br>
-      👉 ${dominant}의 장점은 분명하지만, 심리적 유연성이 줄어들 수 있습니다.<br><br>
-      <b>개선 방향:</b> ${improvements[dominant]} 
+      여러 질문에서 <b>${dominant}</b> 성향이 드러납니다. 
+      이는 카렌호나이가 말한 신경증적 고착의 전형적 패턴이거나, 다양한 태도를 조율하는 균형 성향일 수 있습니다.<br><br>
+      👉 ${dominant}의 장점은 분명하지만, 심리적 유연성을 더 기를 필요가 있습니다.<br><br>
+      <b>개선 방향:</b> ${improvements[dominant]}
     </p>`;
   }
 
