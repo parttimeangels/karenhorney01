@@ -184,57 +184,37 @@ const improvements = {
 // =========================
 // 5. 세부 해설 (상충 로직 개선)
 // =========================
-function conflictInterpretation(answers) {
+// =========================
+// 4. 세부 해설 (상충 vs 일관성 + 개선방향)
+// =========================
+function conflictInterpretation(answers, dominant) {
   let output = "<h3>세부 해설</h3>";
 
-  const relation = answers.find(a => a.axis === "관계");
-  const coping = answers.find(a => a.axis === "문제해결");
-  const emotion = answers.find(a => a.axis === "정서표현");
-  const self = answers.find(a => a.axis === "자기중심");
+  const rep = answers.find(a => a.style === dominant);
+  const conflict = answers.find(a => a.style !== dominant);
 
-  // 우선순위: 관계 ↔ 문제해결 → 관계 ↔ 자기중심 → 문제해결 ↔ 정서표현
-  if (relation && coping && relation.style !== coping.style) {
+  if (rep && conflict) {
+    // 상충 해석
     output += `<p>
-      “${relation.text}”에서 ‘${relation.answer}’라고 답하셨습니다. 
-      하지만 “${coping.text}”에서는 ‘${coping.answer}’라고 하셨네요.<br><br>
-      👉 관계에서는 <b>${relation.style}</b> 성향을 드러내고, 
-      문제해결에서는 <b>${coping.style}</b> 태도가 나타납니다. 
-      즉, 처음에는 완벽하거나 안정된 모습을 보여주려 하지만, 실제 상황에서는 
-      성취욕이나 강한 추진력이 앞서기도 합니다. 때로는 부족한 모습을 드러내고 
-      타인과 함께 해결책을 찾아보는 연습이 도움이 됩니다.
+      “${rep.text}”에서 ‘${rep.answer}’라고 답하셨습니다. 
+      하지만 “${conflict.text}”에서는 ‘${conflict.answer}’라고 하셨네요.<br><br>
+      👉 <b>${dominant}</b> 성향이 강하지만 동시에 
+      <b>${conflict.style}</b> 성향도 드러나, 내적 갈등을 보여줍니다.<br><br>
+      <b>개선 방향:</b> ${improvements[dominant]} 
     </p>`;
-    return output; // ✅ 하나만 출력 후 종료
+  } else if (rep) {
+    // 일관성 해석
+    output += `<p>
+      여러 질문에서 <b>${dominant}</b> 성향이 반복적으로 드러납니다. 
+      이는 호나이가 말한 신경증적 고착의 전형적 패턴입니다.<br><br>
+      👉 ${dominant}의 장점은 분명하지만, 심리적 유연성이 줄어들 수 있습니다.<br><br>
+      <b>개선 방향:</b> ${improvements[dominant]} 
+    </p>`;
   }
 
-  if (relation && self && relation.style !== self.style) {
-    output += `<p>
-      “${relation.text}”에서는 ‘${relation.answer}’라고 하셨지만, 
-      “${self.text}”에서는 ‘${self.answer}’라고 말씀하셨습니다.<br><br>
-      👉 겉으로는 <b>${relation.style}</b> 성향을 보이지만, 내면에는 
-      <b>${self.style}</b> 태도가 자리잡고 있습니다. 관계와 내적 욕구 사이의 
-      불일치가 실망감으로 이어질 수 있습니다. 자기 가치를 타인의 평가와 분리해 
-      보는 것이 도움이 됩니다.
-    </p>`;
-    return output;
-  }
-
-  if (coping && emotion && coping.style !== emotion.style) {
-    output += `<p>
-      “${coping.text}”에서는 ‘${coping.answer}’라고 하셨고, 
-      “${emotion.text}”에서는 ‘${emotion.answer}’라고 답하셨습니다.<br><br>
-      👉 문제를 풀어가는 방식은 <b>${coping.style}</b>이지만, 
-      감정 표현에서는 <b>${emotion.style}</b>이 두드러집니다. 
-      중요한 과제는 미루면서도 감정은 즉각적으로 드러낼 수 있습니다. 
-      감정을 정리하는 힘을 작은 실행에도 연결해보세요.
-    </p>`;
-    return output;
-  }
-
-  // 상충 없음
-  output += `<p>당신의 답변에서는 큰 상충이 드러나지 않았습니다. 
-  이는 내적 갈등보다는 일관된 태도를 유지하고 있다는 의미일 수 있습니다.</p>`;
   return output;
 }
+
 // =========================
 // 6. 제출
 // =========================
