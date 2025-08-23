@@ -220,14 +220,14 @@ function selectOption(i) {
   document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
   document.querySelectorAll('.option-card')[i].classList.add('selected');
 
-  // ✅ 수정된 부분
-userAnswers[currentQuestion] = {
-  axis: questions[currentQuestion].axis,
-  style: questions[currentQuestion].options[i].style,   // 옵션에서 style 가져오기
-  answer: questions[currentQuestion].options[i].answer, // 옵션에서 answer 가져오기
-  text: questions[currentQuestion].text
-};
+  userAnswers[currentQuestion] = {
+    axis: questions[currentQuestion].axis,
+    style: questions[currentQuestion].options[i].style,   // 옵션에서 style 가져오기
+    answer: questions[currentQuestion].options[i].answer, // 옵션에서 answer 가져오기
+    text: questions[currentQuestion].text
+  };
 }
+
 
 function nextQuestion() {
   if (!userAnswers[currentQuestion]) {
