@@ -236,12 +236,12 @@ function selectOption(i) {
   document.querySelectorAll('.option-card')[i].classList.add('selected');
 
   // 답변 저장 (항상 userAnswers에 저장)
-  userAnswers[currentQuestion] = {
-    axis: questions[currentQuestion].axis,
-    style: questions[currentQuestion].style,
-    answer: questions[currentQuestion].options[i].text,
-    text: questions[currentQuestion].text
-  };
+userAnswers[currentQuestion] = {
+ axis: questions[currentQuestion].axis,
+ style: questions[currentQuestion].options[i].style,   // ✅ 수정
+ answer: questions[currentQuestion].options[i].answer, // ✅ 수정
+ text: questions[currentQuestion].text
+};
 }
 
 function nextQuestion() {
