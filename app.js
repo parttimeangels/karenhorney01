@@ -194,24 +194,23 @@ function conflictInterpretation(answers) {
   const self     = answers.find(a => a.axis === "자기중심");
 
   if (relation && coping && relation.style !== coping.style) {
-    conflicts.push(`“${relation.text}”에서 ‘${relation.answer}’, 하지만 “${coping.text}”에서는 ‘${coping.answer}’. 👉 관계에서는 <b>${relation.style}</b>, 문제해결에서는 <b>${coping.style}</b>. 작은 실행을 우선시해 보세요.`);
+    conflicts.push(`“${relation.text}”에서 ‘${relation.answer}’, 그러나 “${coping.text}”에서는 ‘${coping.answer}’를 택했습니다. 👉 관계 속의 당신은 <b>${relation.style}</b>을, 문제 앞에서는 <b>${coping.style}</b>을 선택했습니다. 마치 두 개의 다른 목소리가 안에서 부딪히는 듯합니다. 이 충돌은 혼란이 아니라, 스스로를 새롭게 이해하려는 무의식의 움직임일 수 있습니다.`);
   }
 
   if (relation && self && relation.style !== self.style) {
-    conflicts.push(`“${relation.text}”에서 ‘${relation.answer}’, 하지만 “${self.text}”에서는 ‘${self.answer}’. 👉 겉으로는 <b>${relation.style}</b>, 속으로는 <b>${self.style}</b>. 의견이 받아들여지지 않아도 내 가치는 변하지 않습니다.`);
+    conflicts.push(`“${relation.text}”에서 ‘${relation.answer}’, 그러나 “${self.text}”에서는 ‘${self.answer}’를 택했습니다. 👉 겉으로는 <b>${relation.style}</b>이지만, 내면 깊은 곳에서는 <b>${self.style}</b>이 고개를 듭니다. 이는 단순한 모순이 아니라, 두려움과 바람이 동시에 살아있음을 보여줍니다. 당신이 외면하지 않고 받아들일 때, 이 갈등은 오히려 당신을 지켜내는 힘이 될 것입니다.`);
   }
 
   if (coping && emotion && coping.style !== emotion.style) {
-    conflicts.push(`“${coping.text}”에서 ‘${coping.answer}’, 하지만 “${emotion.text}”에서는 ‘${emotion.answer}’. 👉 문제해결에서는 <b>${coping.style}</b>, 감정표현에서는 <b>${emotion.style}</b>. 감정의 힘을 실행으로 옮겨 보세요.`);
+    conflicts.push(`“${coping.text}”에서 ‘${coping.answer}’, 그러나 “${emotion.text}”에서는 ‘${emotion.answer}’를 택했습니다. 👉 문제를 풀 때는 <b>${coping.style}</b>, 감정을 표현할 때는 <b>${emotion.style}</b>. 이 불일치는 흔들림이 아니라, 당신 안의 여러 결이 동시에 살아있다는 증거입니다. 감정의 힘을 실행에 옮긴다면, 내면의 균열은 오히려 새로운 길을 밝히는 빛이 될 것입니다.`);
   }
 
-  // ✅ 최대 2개만 출력
   if (conflicts.length > 0) {
     conflicts.slice(0, 2).forEach(msg => {
       output += `<p>${msg}</p>`;
     });
   } else {
-    output += "<p>당신의 답변에서는 큰 상충이 드러나지 않았습니다. 이는 내적 태도의 일관성을 보여줍니다.</p>";
+    output += "<p>당신의 답변에서는 뚜렷한 상충이 드러나지 않았습니다. 이는 내면의 여러 목소리가 지금은 비교적 조화를 이루고 있다는 뜻일지도 모릅니다.</p>";
   }
 
   return output;
