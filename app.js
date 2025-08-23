@@ -156,7 +156,7 @@ function classify(scores) {
 }
 
 // =========================
-// 3. 종합 해설 (현실적 톤, 400자 내외)
+// 3. 종합 해설
 // =========================
 const explanations = {
   "순응": "당신은 다른 사람의 기대와 기분을 살피는 데 익숙합니다. 그래서 관계 속에서 편안함과 신뢰를 주지만, 정작 본인의 욕구는 쉽게 뒤로 밀립니다. 인정받지 못하면 서운함과 공허감이 크게 다가올 수 있습니다. 하지만 이건 당신이 약해서가 아니라, 사랑받고 싶고 좋은 관계를 지키고 싶은 마음이 크기 때문입니다. 이제는 ‘내가 원하는 것’을 조금씩 드러내는 연습이 필요합니다. 그 과정이 쌓이면, 관계는 더 건강해지고 당신 자신도 더 단단해질 수 있습니다.",
@@ -171,7 +171,7 @@ const explanations = {
 };
 
 // =========================
-// 4. 개선 방향 (확장 & 성취감 강조)
+// 4. 개선 방향
 // =========================
 const improvements = {
   "순응": "작은 부탁이라도 정중히 거절하는 연습을 해보세요. 의외로 상대방은 이해해주고, 오히려 당신의 솔직함을 존중할 것입니다. 거절의 경험이 쌓일수록 관계는 더 건강해지고, 당신도 자신을 지켜내는 법을 배워갑니다.",
@@ -192,35 +192,32 @@ function conflictInterpretation(answers) {
   const emotion  = answers.filter(a => a.axis === "정서표현");
   const self     = answers.filter(a => a.axis === "자기중심");
 
-  // 관계 vs 문제해결
   relation.forEach(r => {
     coping.forEach(c => {
       if (r.style !== c.style) {
-        output += `<p>“${r.text}”에서 ‘${r.answer}’, 하지만 “${c.text}”에서는 ‘${c.answer}’. 즉 관계에서는 <b>${r.style}</b>, 문제해결에서는 <b>${c.style}</b> 성향이 드러납니다. 👉 개선: 준비보다 작은 실행을 우선시해 보세요.</p>`;
+        output += `<p>“${r.text}”에서 ‘${r.answer}’, 하지만 “${c.text}”에서는 ‘${c.answer}’. 👉 관계에서는 <b>${r.style}</b>, 문제해결에서는 <b>${c.style}</b>. 작은 실행을 우선시해 보세요.</p>`;
       }
     });
   });
 
-  // 관계 vs 자기중심
   relation.forEach(r => {
     self.forEach(s => {
       if (r.style !== s.style) {
-        output += `<p>“${r.text}”에서 ‘${r.answer}’, 하지만 “${s.text}”에서는 ‘${s.answer}’. 즉 겉으로는 <b>${r.style}</b>, 속으로는 <b>${s.style}</b> 성향이 드러납니다. 👉 개선: 의견이 받아들여지지 않아도 내 가치는 변하지 않는다는 확신을 키워보세요.</p>`;
+        output += `<p>“${r.text}”에서 ‘${r.answer}’, 하지만 “${s.text}”에서는 ‘${s.answer}’. 👉 겉으로는 <b>${r.style}</b>, 속으로는 <b>${s.style}</b>. 의견이 받아들여지지 않아도 내 가치는 변하지 않습니다.</p>`;
       }
     });
   });
 
-  // 문제해결 vs 정서표현
   coping.forEach(c => {
     emotion.forEach(e => {
       if (c.style !== e.style) {
-        output += `<p>“${c.text}”에서 ‘${c.answer}’, 하지만 “${e.text}”에서는 ‘${e.answer}’. 즉 문제해결에서는 <b>${c.style}</b>, 감정표현에서는 <b>${e.style}</b> 태도가 나타납니다. 👉 개선: 감정 표현의 힘을 작은 실행에도 옮겨 보세요.</p>`;
+        output += `<p>“${c.text}”에서 ‘${c.answer}’, 하지만 “${e.text}”에서는 ‘${e.answer}’. 👉 문제해결에서는 <b>${c.style}</b>, 감정표현에서는 <b>${e.style}</b>. 감정의 힘을 실행으로 옮겨 보세요.</p>`;
       }
     });
   });
 
   if (!output || output === "<h3>세부 해설</h3>") {
-    output += "<p>당신의 답변에서는 큰 상충이 드러나지 않았습니다. 이는 내적 태도의 일관성이 있다는 뜻이기도 합니다.</p>";
+    output += "<p>당신의 답변에서는 큰 상충이 드러나지 않았습니다. 이는 내적 태도의 일관성을 보여줍니다.</p>";
   }
 
   return output;
@@ -261,25 +258,27 @@ function startTest() {
 
 function showQuestion() {
   const q = questions[currentQuestion];
-  let html = `
-    <div class="question">
-      <h3 style="text-align:center;">${q.title}</h3>
-      <p><b>${q.text}</b></p>
-  `;
+  let html = `<div class="question">`;
+
+  if (q.title) {
+    html += `<h3 style="text-align:center;">${q.title}</h3>`;
+  }
+  html += `<p><b>${q.text}</b></p>`;
+
   q.options.forEach((opt, i) => {
-    html += `
-      <div class="option-card" onclick="selectOption(${i})">
-        ${opt.answer}
-      </div>
-    `;
+    html += `<div class="option-card" onclick="selectOption(${i})">${opt.answer}</div>`;
   });
+
   html += `<p id="progress">(${currentQuestion+1}/${questions.length})</p>`;
+  html += `</div>`;
+
   document.getElementById("question-container").innerHTML = html;
 }
 
 function selectOption(i) {
-  document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
-  document.querySelectorAll('.option-card')[i].classList.add('selected');
+  const options = document.querySelectorAll('.option-card');
+  options.forEach(el => el.style.background = "");
+  options[i].style.background = "#d0ebff";
 
   userAnswers[currentQuestion] = {
     axis: questions[currentQuestion].axis,
@@ -310,8 +309,12 @@ function restartTest() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("startBtn").addEventListener("click", startTest);
-  document.getElementById("nextBtn").addEventListener("click", nextQuestion);
+  const startBtn = document.getElementById("startBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  if (startBtn) startBtn.addEventListener("click", startTest);
+  if (nextBtn) nextBtn.addEventListener("click", nextQuestion);
+
   document.addEventListener("click", (e) => {
     if (e.target && e.target.id === "restartBtn") restartTest();
   });
