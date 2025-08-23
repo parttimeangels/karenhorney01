@@ -185,15 +185,13 @@ const improvements = {
 // 5. 세부 해설 (상충 vs 일관성 + 개선방향)
 // =========================
 function conflictInterpretation(answers, dominant) {
-  let output = "<h3>세부 해설</h3>";
+  let output = ""; // 타이틀 삭제
 
-  // dominant 성향 질문 하나 뽑기
   const rep = answers.find(a => a.style === dominant);
-  // 다른 성향 중 하나 뽑기
-  const conflict = answers.find(a => a.style !== dominant);
+  const others = answers.filter(a => a.style !== dominant);
+  const conflict = others.length > 0 ? others[Math.floor(Math.random() * others.length)] : null;
 
   if (rep && conflict) {
-    // 상충 해석
     output += `<p>
       “${rep.text}”에서 ‘${rep.answer}’라고 답하셨습니다. 
       하지만 “${conflict.text}”에서는 ‘${conflict.answer}’라고 하셨네요.<br><br>
@@ -202,7 +200,6 @@ function conflictInterpretation(answers, dominant) {
       <b>개선 방향:</b> ${improvements[dominant]} 
     </p>`;
   } else if (rep) {
-    // 일관성 해석
     output += `<p>
       여러 질문에서 <b>${dominant}</b> 성향이 반복적으로 드러납니다. 
       이는 호나이가 말한 신경증적 고착의 전형적 패턴입니다.<br><br>
@@ -213,6 +210,7 @@ function conflictInterpretation(answers, dominant) {
 
   return output;
 }
+
 
 // =========================
 // 6. 제출
