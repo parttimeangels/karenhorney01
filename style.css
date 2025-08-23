@@ -2,16 +2,16 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-  background: #f2f4f7;
-  color: #333;
+  background: #FAF6ED; /* 아이보리 배경 */
+  color: #111;
 }
 
-/* 화면 전체 wrapper */
+/* 화면 wrapper */
 .wrapper {
-  min-height: 100vh;               /* 화면 전체 높이 */
+  min-height: 100vh;
   display: flex;
-  justify-content: center;         /* 가로 중앙 */
-  align-items: center;             /* 세로 중앙 */
+  justify-content: center;
+  align-items: center;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -20,16 +20,14 @@ body {
 .container {
   max-width: 700px;
   width: 100%;
-  background: #fff;
+  background: #FAF6ED; /* 배경과 통일 */
   padding: 30px 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
 /* 제목 */
 h1 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
   font-weight: 700;
 }
@@ -37,28 +35,29 @@ h1 {
 /* 문단 */
 p {
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
   margin: 0.5rem 0;
 }
 
-/* 버튼 공통 */
+/* 기본 버튼 */
 button {
   display: inline-block;
   width: 100%;
   padding: 14px 18px;
   margin-top: 15px;
-  background: #007bff;
+  background: #1A00FF;
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 0; /* 둥글림 제거 */
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* feather 스타일 */
+  transition: all 0.3s ease;
 }
 
 button:hover {
-  background: #0056b3;
+  background: #0000cc;
 }
 
 button:disabled {
@@ -71,33 +70,36 @@ button:disabled {
   margin: 20px 0;
 }
 
-/* 답변 옵션 (카드형 버튼) */
+/* 옵션 카드 */
 .option-card {
   display: block;
   margin: 12px 0;
   padding: 14px 18px;
-  border: 2px solid #ddd;
-  border-radius: 8px;
+  border: 1.5px solid #111;
+  border-radius: 0; /* 둥글림 제거 */
   cursor: pointer;
   font-size: 1rem;
   transition: all 0.3s ease;
   text-align: center;
   user-select: none;
-  background: #fafafa;
+  background: #FAF6ED; /* 선택 안된 상태 = 배경색 동일 */
+  color: #111;
+  font-weight: 500;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15); /* feather */
 }
 
-/* 마우스 hover */
+/* hover 효과 */
 .option-card:hover {
-  border-color: #007bff;
-  background: #f0f8ff;
+  background: #f2efe6;
 }
 
 /* 선택된 옵션 */
 .option-card.selected {
-  background: #28a745;
-  color: #fff;
-  border-color: #28a745;
+  background: #1A00FF; /* 파란색 */
+  color: #fff;         /* 흰색 글씨 */
+  border: none;
   font-weight: bold;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
 }
 
 /* 진행률 */
