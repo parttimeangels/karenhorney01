@@ -1,168 +1,169 @@
-/* =========================
-   기본 레이아웃
-========================= */
+/* =====================
+   전체 레이아웃
+===================== */
 body {
-  font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
+  background: #f5f7fa;
   margin: 0;
   padding: 0;
-  background-color: #f9f9f9;
   color: #333;
+  line-height: 1.6;
 }
 
 .container {
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 20px;
 }
 
-/* =========================
-   인트로 / 타이틀
-========================= */
+/* =====================
+   제목 & 설명
+===================== */
+h1 {
+  text-align: center;
+  color: #222;
+  margin-bottom: 20px;
+}
+
+p {
+  margin: 0 0 15px;
+}
+
+/* =====================
+   intro / 설명 박스
+===================== */
 #intro {
   text-align: center;
-  margin-top: 40px;
-}
-
-#intro h1 {
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-}
-
-#intro p {
-  color: #666;
-  font-size: 1rem;
-  line-height: 1.6;
-}
-
-/* =========================
-   질문 카드
-========================= */
-.question {
   background: #fff;
   padding: 20px;
-  margin: 15px 0;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.question p {
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
-.question label {
-  display: block;
-  background: #f2f2f2;
-  margin: 8px 0;
-  padding: 12px 15px;
+/* =====================
+   버튼 스타일
+===================== */
+button {
+  display: inline-block;
+  background: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-.question input[type="radio"] {
-  display: none; /* 기본 라디오 버튼 숨김 */
-}
-
-.question label:hover {
-  background: #e6e6e6;
-}
-
-.question input[type="radio"]:checked + span {
-  font-weight: bold;
-  color: #2c7be5;
-}
-
-/* =========================
-   버튼 스타일
-========================= */
-button {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 6px;
-  background-color: #4CAF50;
-  color: white;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  margin: 10px 5px;
+  transition: background 0.3s ease;
 }
 
 button:hover {
-  background-color: #45a049;
+  background: #357abd;
 }
 
 .button-group {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 25px;
+  text-align: center;
+  margin-top: 20px;
 }
 
-/* =========================
-   결과 화면
-========================= */
+/* =====================
+   질문 영역
+===================== */
+.question {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.question p {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+/* =====================
+   옵션 카드형 버튼
+===================== */
+.option-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 15px;
+  margin: 8px 0;
+  font-size: 16px;
+  background: #f0f0f0;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.option-btn:hover {
+  background: #e6f0ff;
+  border-color: #4a90e2;
+}
+
+.option-btn.selected {
+  background: #4a90e2;
+  color: #fff;
+  border-color: #357abd;
+}
+
+/* 라디오 input 숨김 */
+.question input[type="radio"] {
+  display: none;
+}
+
+/* =====================
+   진행도 표시
+===================== */
+#progress {
+  text-align: right;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* =====================
+   결과 영역
+===================== */
 #result {
   background: #fff;
   padding: 25px;
-  margin-top: 20px;
-  border-radius: 12px;
+  border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 #result h2 {
-  margin-bottom: 15px;
-  font-size: 1.4rem;
+  margin-top: 0;
+  color: #222;
 }
 
 #result h3 {
   margin-top: 20px;
-  font-size: 1.2rem;
-  color: #2c7be5;
+  color: #444;
 }
 
-#result p {
-  margin: 10px 0;
-  line-height: 1.6;
-}
-
-/* =========================
-   진행 표시
-========================= */
-#progress {
-  text-align: right;
-  font-size: 0.9rem;
-  color: #666;
-  margin-top: 5px;
-}
-
-/* =========================
-   모바일 최적화
-========================= */
-@media (max-width: 600px) {
-  .container {
-    padding: 15px;
+/* =====================
+   모바일 대응
+===================== */
+@media (max-width: 480px) {
+  body {
+    font-size: 15px;
   }
-
-  #intro h1 {
-    font-size: 1.5rem;
+  h1 {
+    font-size: 22px;
   }
-
-  .question {
-    padding: 15px;
-  }
-
   .question p {
-    font-size: 1rem;
+    font-size: 16px;
   }
-
-  .button-group {
-    flex-direction: column;
-    gap: 10px;
+  .option-btn {
+    font-size: 15px;
+    padding: 10px 12px;
   }
-
-  .button-group button {
+  button {
     width: 100%;
+    margin: 8px 0;
   }
 }
