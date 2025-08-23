@@ -204,44 +204,53 @@ function submitTest(answers) {
 // =========================
 let currentQuestion = 0;
 let userAnswers = [];
+let selectedAnswer = null;
 
 function startTest() {
   document.getElementById("intro").style.display = "none";
   document.getElementById("testForm").style.display = "block";
   currentQuestion = 0;
   userAnswers = [];
+  selectedAnswer = null;
   showQuestion();
 }
 
 function showQuestion() {
   const q = questions[currentQuestion];
   let html = `<div class="question"><p>${q.text}</p>`;
+
   q.options.forEach(opt => {
     html += `
-  <label class="option-card">
-    <input type="radio" name="q${currentQuestion}" value="${opt.answer}" hidden>
-    <span>${opt.answer}</span>
-  </label>
-`;
+      <button 
+        class="option-btn" 
+        onclick="selectOption('${opt.style}', '${opt.answer}', '${q.axis}', '${q.text}', this)">
+        ${opt.answer}
+      </button>
+    `;
   });
+
   html += `</div>`;
   document.getElementById("question-container").innerHTML = html;
   document.getElementById("progress").innerText = `(${currentQuestion+1}/${questions.length})`;
 }
 
+function selectOption(style, answer, axis, text, btn) {
+  selectedAnswer = { axis, style, answer, text };
+
+  // 선택 강조 표시
+  const buttons = document.querySelectorAll(".option-btn");
+  buttons.forEach(b => b.classList.remove("selected"));
+  btn.classList.add("selected");
+}
+
 function nextQuestion() {
-  const selected = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
-  if (!selected) {
+  if (!selectedAnswer) {
     alert("답변을 선택해주세요.");
     return;
   }
-  const opt = questions[currentQuestion].options.find(o => o.answer === selected.value);
-  userAnswers.push({
-    axis: questions[currentQuestion].axis,
-    style: opt.style,
-    answer: opt.answer,
-    text: questions[currentQuestion].text
-  });
+
+  userAnswers.push(selectedAnswer);
+  selectedAnswer = null; // 초기화
 
   currentQuestion++;
   if (currentQuestion < questions.length) {
@@ -269,14 +278,11 @@ function shareResult() {
 // 7. 이벤트 리스너 등록 (CSP 대응)
 // =========================
 document.addEventListener("DOMContentLoaded", () => {
-  // intro 영역 버튼
   document.getElementById("startBtn").addEventListener("click", startTest);
   document.getElementById("nextBtn").addEventListener("click", nextQuestion);
 
-  // 결과 화면에서 추가되는 버튼(동적으로 생기므로 setTimeout으로 연결)
   document.addEventListener("click", (e) => {
     if (e.target && e.target.id === "restartBtn") restartTest();
     if (e.target && e.target.id === "shareBtn") shareResult();
   });
 });
-
