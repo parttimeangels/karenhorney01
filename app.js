@@ -249,15 +249,10 @@ function restartTest() {
   document.getElementById("testForm").style.display = "none";
 }
 
-//function shareResult() {
-//  const resultText = document.getElementById("result").innerText;
-//  navigator.clipboard.writeText(resultText).then(() => {
-//    alert("결과가 클립보드에 복사되었습니다.");
-// });
-}
+
 
 // =========================
-// 7. 이벤트 리스너
+// 7. 이벤트 리스너 등록 (CSP 대응)
 // =========================
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("startBtn").addEventListener("click", startTest);
@@ -265,6 +260,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("click", (e) => {
     if (e.target && e.target.id === "restartBtn") restartTest();
-
   });
 });
