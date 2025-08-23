@@ -1,123 +1,79 @@
-/* 전체 기본 */
+/* 전체 레이아웃 */
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-  background: #fafafa;
-  color: #222;
-  max-width: 600px;
-  margin: auto;
+  background: #f2f4f7;
+  margin: 0;
   padding: 16px;
-  line-height: 1.6;
+  display: flex;
+  justify-content: center;
 }
 
-/* 설명 영역 */
-#intro {
-  text-align: center;
-  margin: 20px auto;
-  padding: 0 10px;
+/* 메인 컨테이너 */
+#app {
+  width: 100%;
+  max-width: 480px;
 }
 
+/* 카드형 박스 */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* 제목 & 설명 */
 #intro h2 {
   font-size: 20px;
-  margin-bottom: 10px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  text-align: center;
 }
 
 #intro p {
-  font-size: 14px;
+  font-size: 15px;
   color: #444;
+  text-align: center;
+  line-height: 1.5;
 }
 
-/* 퀴즈 컨테이너 */
-#quizContainer {
-  margin-top: 20px;
-}
-
+/* 질문 텍스트 */
 #questionText {
   font-size: 18px;
-  margin-bottom: 10px;
+  font-weight: 600;
+  margin-bottom: 12px;
 }
 
+/* 진행 상황 */
 #progress {
   font-size: 13px;
-  color: #666;
+  color: #888;
   margin-bottom: 16px;
-  display: block;
   text-align: right;
 }
 
-/* 선택 버튼 */
+/* 옵션 버튼 */
 .optionBtn {
   display: block;
   width: 100%;
   margin: 8px 0;
   padding: 14px;
-  font-size: 15px;
-  text-align: left;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
   background: #fff;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: all 0.2s;
+  text-align: left;
 }
 
 .optionBtn:hover {
-  background: #f0f0f0;
+  background: #f5f7fa;
+  border-color: #bbb;
 }
 
 /* 다음 버튼 */
 #nextBtn {
-  margin-top: 16px;
-  padding: 14px;
-  width: 100%;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  background: #007BFF;
-  color: #fff;
-  cursor: pointer;
-}
-
-#nextBtn:disabled {
-  background: #bbb;
-  cursor: not-allowed;
-}
-
-/* 결과 영역 */
-#result {
-  background: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  font-size: 15px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-#result h2 {
-  font-size: 20px;
-  margin-bottom: 12px;
-}
-
-#result h3 {
   margin-top: 18px;
-  font-size: 17px;
-  color: #333;
-}
-
-/* 작은 화면 최적화 */
-@media (max-width: 480px) {
-  body {
-    padding: 12px;
-  }
-
-  #questionText {
-    font-size: 16px;
-  }
-
-  .optionBtn {
-    font-size: 14px;
-    padding: 12px;
-  }
-
-  #nextBtn {
-    font-size: 15px;
-    padding: 12px;
-  }
-}
+  padding: 1
