@@ -1,5 +1,5 @@
 /* ========================= */
-/* 공통 컨테이너 정렬 */
+/* 공통 컨테이너 정렬 + 반응형 */
 /* ========================= */
 .container {
   max-width: 600px;
@@ -8,6 +8,20 @@
   background: #fdfaf3; /* 아이보리 */
   color: #222;
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 90%;
+    padding: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 800px;
+    padding: 30px;
+  }
 }
 
 /* ========================= */
@@ -28,7 +42,7 @@
   padding: 14px 18px;
   margin: 10px 0;
   background: #fdfaf3;   /* 아이보리 */
-  color: #222;           /* 검정 글씨 */
+  color: #1A00FF;        /* 기본은 파란 글씨 */
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
@@ -62,7 +76,7 @@
   padding: 14px 18px;
   margin-top: 15px;
   background: #fdfaf3;   /* 아이보리 (기본) */
-  color: #222;           /* 검정 글씨 */
+  color: #1A00FF;        /* 파란 글씨 */
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
@@ -87,7 +101,7 @@
   padding: 14px 18px;
   margin: 10px 1%;
   background: #fdfaf3;   /* 기본은 아이보리 */
-  color: #222;
+  color: #1A00FF;        /* 파란 글씨 */
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
