@@ -250,11 +250,11 @@ function restartTest() {
   document.getElementById("testForm").style.display = "none";
 }
 
-function shareResult() {
-  const resultText = document.getElementById("result").innerText;
-  navigator.clipboard.writeText(resultText).then(() => {
-    alert("결과가 클립보드에 복사되었습니다.");
-  });
+//function shareResult() {
+//  const resultText = document.getElementById("result").innerText;
+//  navigator.clipboard.writeText(resultText).then(() => {
+//    alert("결과가 클립보드에 복사되었습니다.");
+// });
 }
 
 // =========================
@@ -266,6 +266,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("click", (e) => {
     if (e.target && e.target.id === "restartBtn") restartTest();
-    if (e.target && e.target.id === "shareBtn") shareResult();
+   // if (e.target && e.target.id === "shareBtn") shareResult();
   });
 });
