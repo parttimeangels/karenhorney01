@@ -202,8 +202,8 @@ function selectOption(i) {
   // ✅ 수정된 부분
   userAnswers[currentQuestion] = {
     axis: questions[currentQuestion].axis,
-    style: questions[currentQuestion].options[i].style,
-    answer: questions[currentQuestion].options[i].answer,
+    style: questions[currentQuestion].options[i].style,   // ✅ 수정됨
+    answer: questions[currentQuestion].options[i].answer, // ✅ 수정됨 (text → answer)
     text: questions[currentQuestion].text
   };
 }
