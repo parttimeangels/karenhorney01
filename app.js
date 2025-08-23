@@ -186,36 +186,55 @@ const improvements = {
 // =========================
 function conflictInterpretation(answers) {
   let output = "<h3>세부 해설</h3>";
-  const conflicts = [];
 
   const relation = answers.find(a => a.axis === "관계");
-  const coping   = answers.find(a => a.axis === "문제해결");
-  const emotion  = answers.find(a => a.axis === "정서표현");
-  const self     = answers.find(a => a.axis === "자기중심");
+  const coping = answers.find(a => a.axis === "문제해결");
+  const emotion = answers.find(a => a.axis === "정서표현");
+  const self = answers.find(a => a.axis === "자기중심");
 
+  // 우선순위: 관계 ↔ 문제해결 → 관계 ↔ 자기중심 → 문제해결 ↔ 정서표현
   if (relation && coping && relation.style !== coping.style) {
-    conflicts.push(`“${relation.text}”에서 ‘${relation.answer}’, 그러나 “${coping.text}”에서는 ‘${coping.answer}’를 택했습니다. 👉 관계 속의 당신은 <b>${relation.style}</b>을, 문제 앞에서는 <b>${coping.style}</b>을 선택했습니다. 마치 두 개의 다른 목소리가 안에서 부딪히는 듯합니다. 이 충돌은 혼란이 아니라, 스스로를 새롭게 이해하려는 무의식의 움직임일 수 있습니다.`);
+    output += `<p>
+      “${relation.text}”에서 ‘${relation.answer}’라고 답하셨습니다. 
+      하지만 “${coping.text}”에서는 ‘${coping.answer}’라고 하셨네요.<br><br>
+      👉 관계에서는 <b>${relation.style}</b> 성향을 드러내고, 
+      문제해결에서는 <b>${coping.style}</b> 태도가 나타납니다. 
+      즉, 처음에는 완벽하거나 안정된 모습을 보여주려 하지만, 실제 상황에서는 
+      성취욕이나 강한 추진력이 앞서기도 합니다. 때로는 부족한 모습을 드러내고 
+      타인과 함께 해결책을 찾아보는 연습이 도움이 됩니다.
+    </p>`;
+    return output; // ✅ 하나만 출력 후 종료
   }
 
   if (relation && self && relation.style !== self.style) {
-    conflicts.push(`“${relation.text}”에서 ‘${relation.answer}’, 그러나 “${self.text}”에서는 ‘${self.answer}’를 택했습니다. 👉 겉으로는 <b>${relation.style}</b>이지만, 내면 깊은 곳에서는 <b>${self.style}</b>이 고개를 듭니다. 이는 단순한 모순이 아니라, 두려움과 바람이 동시에 살아있음을 보여줍니다. 당신이 외면하지 않고 받아들일 때, 이 갈등은 오히려 당신을 지켜내는 힘이 될 것입니다.`);
+    output += `<p>
+      “${relation.text}”에서는 ‘${relation.answer}’라고 하셨지만, 
+      “${self.text}”에서는 ‘${self.answer}’라고 말씀하셨습니다.<br><br>
+      👉 겉으로는 <b>${relation.style}</b> 성향을 보이지만, 내면에는 
+      <b>${self.style}</b> 태도가 자리잡고 있습니다. 관계와 내적 욕구 사이의 
+      불일치가 실망감으로 이어질 수 있습니다. 자기 가치를 타인의 평가와 분리해 
+      보는 것이 도움이 됩니다.
+    </p>`;
+    return output;
   }
 
   if (coping && emotion && coping.style !== emotion.style) {
-    conflicts.push(`“${coping.text}”에서 ‘${coping.answer}’, 그러나 “${emotion.text}”에서는 ‘${emotion.answer}’를 택했습니다. 👉 문제를 풀 때는 <b>${coping.style}</b>, 감정을 표현할 때는 <b>${emotion.style}</b>. 이 불일치는 흔들림이 아니라, 당신 안의 여러 결이 동시에 살아있다는 증거입니다. 감정의 힘을 실행에 옮긴다면, 내면의 균열은 오히려 새로운 길을 밝히는 빛이 될 것입니다.`);
+    output += `<p>
+      “${coping.text}”에서는 ‘${coping.answer}’라고 하셨고, 
+      “${emotion.text}”에서는 ‘${emotion.answer}’라고 답하셨습니다.<br><br>
+      👉 문제를 풀어가는 방식은 <b>${coping.style}</b>이지만, 
+      감정 표현에서는 <b>${emotion.style}</b>이 두드러집니다. 
+      중요한 과제는 미루면서도 감정은 즉각적으로 드러낼 수 있습니다. 
+      감정을 정리하는 힘을 작은 실행에도 연결해보세요.
+    </p>`;
+    return output;
   }
 
-  if (conflicts.length > 0) {
-    conflicts.slice(0, 2).forEach(msg => {
-      output += `<p>${msg}</p>`;
-    });
-  } else {
-    output += "<p>당신의 답변에서는 뚜렷한 상충이 드러나지 않았습니다. 이는 내면의 여러 목소리가 지금은 비교적 조화를 이루고 있다는 뜻일지도 모릅니다.</p>";
-  }
-
+  // 상충 없음
+  output += `<p>당신의 답변에서는 큰 상충이 드러나지 않았습니다. 
+  이는 내적 갈등보다는 일관된 태도를 유지하고 있다는 의미일 수 있습니다.</p>`;
   return output;
 }
-
 // =========================
 // 6. 제출
 // =========================
